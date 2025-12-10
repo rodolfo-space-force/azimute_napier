@@ -1,5 +1,5 @@
 # azimute_napier
-Calcular o azimute de lançamento de foguete
+Calcular o azimute de lançamento de Veículo Lançador.
 
 O código serve para calcular o azimute de lançamento (ângulo no horizonte em que o foguete deve ser lançado) para atingir uma órbita com determinada inclinação a partir de uma latitude de lançamento.
 
