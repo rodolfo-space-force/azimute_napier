@@ -3,6 +3,8 @@ Calcular o azimute de lançamento de foguete
 
 O código serve para calcular o azimute de lançamento (ângulo no horizonte em que o foguete deve ser lançado) para atingir uma órbita com determinada inclinação a partir de uma latitude de lançamento.
 
+![Texto alternativo da imagem](inclinacao.png)
+
 Exemplos de dados que você pode inserir
 
  1. Cabo Canaveral (EUA)
@@ -46,7 +48,7 @@ Exemplos de dados que você pode inserir
     Órbitas geoestacionárias → azimute leste (90°).
     Órbitas polares → lançamentos norte ou sul (\~0° ou 180°).
 
-📄 Licença
+## 📄 Licença
 
 Este projeto está licenciado sob a Licença MIT.
 Você pode usar, modificar e redistribuir este código livremente, desde que mencione o autor original.
