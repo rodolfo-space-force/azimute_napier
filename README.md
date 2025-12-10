@@ -53,9 +53,5 @@ Exemplos de dados que você pode inserir
 Este projeto está licenciado sob a Licença MIT.
 Você pode usar, modificar e redistribuir este código livremente, desde que mencione o autor original.
 
-## Licença
-
-Este projeto está licenciado sob os termos da MIT License.  
-
 [Clique aqui para ver a licença completa.](https://opensource.org/licenses/MIT)
 
