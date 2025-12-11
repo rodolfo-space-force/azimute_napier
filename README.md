@@ -48,10 +48,12 @@ Exemplos de dados que você pode inserir
     Órbitas geoestacionárias → azimute leste (90°).
     Órbitas polares → lançamentos norte ou sul (\~0° ou 180°).
 
-## 📄 Licença
+You can reach me at rmilhomem[at]gmail[dot]com or connect on [LinkedIn](https://www.linkedin.com/in/rodolfo-space-force/) for collaborations.
 
-Este projeto está licenciado sob a Licença MIT.
-Você pode usar, modificar e redistribuir este código livremente, desde que mencione o autor original.
+
+## Licença
+
+Este projeto está licenciado sob a Licença MIT. Você pode usar, modificar e redistribuir este código livremente, desde que mencione o autor original.
 
 [Clique aqui para ver a licença completa.](https://opensource.org/licenses/MIT)
 
