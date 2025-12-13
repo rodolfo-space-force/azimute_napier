@@ -1,6 +1,8 @@
 # azimute_napier
 Calcular o azimute de lançamento de Veículo Lançador.
 
+[![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://github.com/topics/python)
+
 O código serve para calcular o azimute de lançamento (ângulo no horizonte em que o foguete deve ser lançado) para atingir uma órbita com determinada inclinação a partir de uma latitude de lançamento.
 
 ![Texto alternativo da imagem](inclinacao.png)
