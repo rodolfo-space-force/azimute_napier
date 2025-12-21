@@ -45,7 +45,7 @@ Cálculo do Azimute de Lançamento Orbital
 Insira a latitude da base de lançamento (em graus): -2.3  (hemisferio sul)
 Insira a inclinação orbital desejada (em graus): 97.6 (SSO)
 
- Azimute operacional calculado: 277.61° (em direção oeste)
+ Azimute operacional calculado: 187.61° (em direção sul)
 
 ---
 
