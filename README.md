@@ -30,6 +30,13 @@ Exemplos de dados que você pode inserir
  Latitude: 2.3
  Inclinação desejada: 0.0 (órbita equatorial perfeita)
  Resultado esperado: azimute ≈ 90° (exatamente para leste, ideal para GEO).
+ Quando você digita -2.3, o código entende que está no hemisfério sul, e retorna corretamente o azimute 277.4° que é o usado em missões reais lançadas de Alcântara para órbitas SSO.
+
+Para órbitas equatoriais (ex: GEO):
+O sinal da latitude não muda o azimute  = 90° para ambos os hemisférios.
+
+Para órbitas inclinadas (ex: SSO):
+O sinal da latitude é determinante, porque ele define o lado do planeta por onde o foguete deve subir para alcançar com segurança a inclinação desejada sem sobrevoar continentes.
 
 ---
 
