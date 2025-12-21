@@ -43,10 +43,11 @@ def direcao(az):
 
 
 if __name__ == "__main__":
-    print("\n🛰️  Cálculo do Azimute de Lançamento Orbital – OPERACIONAL\n")
+    print("\nCálculo do Azimute de Lançamento Orbital – OPERACIONAL\n")
 
     lat = float(input("Insira a latitude da base de lançamento (em graus): "))
     inc = float(input("Insira a inclinação orbital desejada (em graus): "))
 
     az = azimute_operacional(lat, inc)
-    print(f"\n✅ Azimute operacional calculado: {az:.2f}° (em direção {direcao(az)})")
+    print(f"\nAzimute operacional calculado: {az:.2f}° (em direção {direcao(az)})")
+
