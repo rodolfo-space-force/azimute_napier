@@ -1,67 +1,56 @@
 import math
 
-def calcular_azimutes(latitude, inclinacao):
-    """
-    Calcula os azimutes possíveis (prógrado e retrógrado) para uma determinada latitude e inclinação orbital.
-    """
-    # Checagem de viabilidade física
-    if abs(inclinacao) < abs(latitude):
-        raise ValueError(f"Inclinação {inclinacao:.2f}° impossível a partir da latitude {latitude:.2f}°.")
+def azimute_operacional(latitude, inclinacao):
+    lat = latitude
+    inc = inclinacao
 
-    lat_rad = math.radians(latitude)
-    inc_rad = math.radians(inclinacao)
+    # Limite físico
+    if inc < abs(lat):
+        raise ValueError(
+            f"Inclinação {inc:.2f}° impossível a partir da latitude {abs(lat):.2f}°."
+        )
 
-    # Caso especial: inclinação = latitude
-    if abs(inclinacao - abs(latitude)) < 1e-6:
-        return 90.0, 270.0  # Leste e oeste
+    # Caso especial: inclinação mínima direta
+    if abs(inc - abs(lat)) < 1e-6:
+        return 90.0  # Leste puro
 
-    # Cálculo do ângulo com base na fórmula
-    cos_azimute = math.cos(inc_rad) / math.cos(lat_rad)
+    lat_rad = math.radians(lat)
+    inc_rad = math.radians(inc)
 
-    # Limita o valor para evitar domínio inválido na função acos
-    cos_azimute = max(-1.0, min(1.0, cos_azimute))
+    cos_theta = math.cos(inc_rad) / math.cos(lat_rad)
+    cos_theta = max(-1.0, min(1.0, cos_theta))
 
-    az = math.degrees(math.acos(cos_azimute))
+    theta = math.degrees(math.acos(cos_theta))
 
-    # Retorna ambos os possíveis azimutes (prógrado e retrógrado)
-    return az, 360 - az
+    if inc <= 90:
+        # Prógrada
+        return theta
+    else:
+        # Retrógrada OPERACIONAL (Vandenberg / SSO)
+        return 180 + (theta - 90)
 
 
-def direcao_cardinal(azimute):
-    """
-    Traduz o azimute em uma direção cardinal aproximada.
-    """
-    setores = [
-        (22.5, "norte"),
-        (67.5, "nordeste"),
-        (112.5, "leste"),
-        (157.5, "sudeste"),
-        (202.5, "sul"),
-        (247.5, "sudoeste"),
-        (292.5, "oeste"),
-        (337.5, "noroeste"),
-        (360.0, "norte")
-    ]
-    for limite, direcao in setores:
-        if azimute < limite:
-            return direcao
-    return "norte"  # fallback
+def direcao(az):
+    if az < 112.5:
+        return "leste"
+    elif az < 157.5:
+        return "sudeste"
+    elif az < 202.5:
+        return "sul"
+    elif az < 247.5:
+        return "sudoeste"
+    elif az < 292.5:
+        return "oeste"
+    else:
+        return "noroeste"
 
 
 if __name__ == "__main__":
-    print("Cálculo do Azimute de Lançamento Orbital – OPERACIONAL\n")
+    print("\n🛰️  Cálculo do Azimute de Lançamento Orbital – OPERACIONAL\n")
 
-    # Entrada do usuário
-    latitude = float(input("Insira a latitude da base de lançamento (em graus): "))
-    inclinacao = float(input("Insira a inclinação orbital desejada (em graus): "))
+    lat = float(input("Insira a latitude da base de lançamento (em graus): "))
+    inc = float(input("Insira a inclinação orbital desejada (em graus): "))
 
-    # Cálculo
-    try:
-        az_prógrado, az_retrógrado = calcular_azimutes(latitude, inclinacao)
+    az = azimute_operacional(lat, inc)
 
-        print("\nAzimutes operacionais possíveis:")
-        print(f"Azimute prógrado (rumo sul):   {az_prógrado:.2f}° ({direcao_cardinal(az_prógrado)})")
-        print(f"Azimute retrógrado (rumo norte): {az_retrógrado:.2f}° ({direcao_cardinal(az_retrógrado)})")
-
-    except ValueError as e:
-        print(str(e))
+    print(f"\n✅ Azimute operacional calculado: {az:.2f}° (em direção {direcao(az)})")
