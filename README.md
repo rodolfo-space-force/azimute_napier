@@ -38,6 +38,15 @@ O sinal da latitude não muda o azimute  = 90° para ambos os hemisférios.
 Para órbitas inclinadas (ex: SSO):
 O sinal da latitude é determinante, porque ele define o lado do planeta por onde o foguete deve subir para alcançar com segurança a inclinação desejada sem sobrevoar continentes.
 
+Exemplo: Missao Innospace em alcantara:
+O HANBIT-Nano é um veículo de lançamento espacial de dois capacidade de transporte de um custo útil de 90 kg para uma heliosíncrona (SSO) de 500 km.
+Cálculo do Azimute de Lançamento Orbital
+
+Insira a latitude da base de lançamento (em graus): -2.3  (hemisferio sul)
+Insira a inclinação orbital desejada (em graus): 97.6 (SSO)
+
+ Azimute operacional calculado: 277.61° (em direção oeste)
+
 ---
 
  4. Vandenberg (Califórnia, EUA)
