@@ -1,41 +1,34 @@
 import math
 
 def azimute_operacional(latitude, inclinacao):
-    lat = latitude
-    inc = inclinacao
-
-    # Verificação física – inclinação não pode ser menor que a latitude (sem manobra orbital)
-    if inc < abs(lat):
+    # Limite físico
+    if inclinacao < abs(latitude):
         raise ValueError(
-            f"Inclinação {inc:.2f}° impossível a partir da latitude {abs(lat):.2f}°."
+            f"Inclinação {inclinacao:.2f}° impossível a partir da latitude {abs(latitude):.2f}°."
         )
 
-    # Caso especial: inclinação ≈ latitude → lançamento exato para leste
-    if abs(inc - abs(lat)) < 1e-6:
-        return 90.0
+    # Caso especial: inclinação mínima direta
+    if abs(inclinacao - abs(latitude)) < 1e-6:
+        return 90.0  # Leste puro
 
-    lat_rad = math.radians(lat)
-    inc_rad = math.radians(inc)
+    lat_rad = math.radians(latitude)
+    inc_rad = math.radians(inclinacao)
 
+    # Ângulo geométrico auxiliar (NÃO é azimute)
     cos_theta = math.cos(inc_rad) / math.cos(lat_rad)
-    cos_theta = max(-1.0, min(1.0, cos_theta))  # evita domínio inválido
+    cos_theta = max(-1.0, min(1.0, cos_theta))
     theta = math.degrees(math.acos(cos_theta))
 
-    if inc <= 90:
-        # Órbita prógrada
+    if inclinacao <= 90:
+        # Prógrada
         return theta
     else:
-        # Órbita retrógrada: aplicar política operacional por hemisfério
-        if lat >= 0:
-            return 180 - theta  # Hemisfério Norte → lança para sul-sudoeste
-        else:
-            return 180 + theta  # Hemisfério Sul → lança para noroeste
+        # Retrógrada OPERACIONAL (SSO)
+        return 180 + (theta - 90)
 
 
 def direcao(az):
-    if az < 67.5:
-        return "nordeste"
-    elif az < 112.5:
+    if az < 112.5:
         return "leste"
     elif az < 157.5:
         return "sudeste"
@@ -50,14 +43,10 @@ def direcao(az):
 
 
 if __name__ == "__main__":
-    print("\n Cálculo do Azimute de Lançamento Orbital\n")
+    print("\n🛰️  Cálculo do Azimute de Lançamento Orbital – OPERACIONAL\n")
 
-    try:
-        lat = float(input("Insira a latitude da base de lançamento (em graus): "))
-        inc = float(input("Insira a inclinação orbital desejada (em graus): "))
+    lat = float(input("Insira a latitude da base de lançamento (em graus): "))
+    inc = float(input("Insira a inclinação orbital desejada (em graus): "))
 
-        az = azimute_operacional(lat, inc)
-        print(f"\n Azimute operacional calculado: {az:.2f}° (em direção {direcao(az)})")
-
-    except ValueError as e:
-        print(f"\n Erro: {e}")
+    az = azimute_operacional(lat, inc)
+    print(f"\n✅ Azimute operacional calculado: {az:.2f}° (em direção {direcao(az)})")
