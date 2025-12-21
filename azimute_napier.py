@@ -1,49 +1,37 @@
-# Rodolfo Milhomem – github.com/rodolfo-space-force
-
 import math
 
-def calcular_azimute(lat, inclinacao):
-    """
-    Calcula o azimute de lançamento (graus) com base na latitude e inclinação desejada.
-    Inclinações > 90° são tratadas como retrógradas.
-    Inclinações < latitude são fisicamente impossíveis com lançamento direto.
-    """
-    lat_rad = math.radians(lat)
-    inc_rad = math.radians(inclinacao)
+def azimute_operacional(latitude, inclinacao):
+    lat = latitude
+    inc = inclinacao
 
-    # Verificação de limite físico
-    limite = math.cos(inc_rad) / math.cos(lat_rad)
-    if abs(limite) > 1:
+    # Limite físico
+    if inc < abs(lat):
         raise ValueError(
-            f"️ Inclinação de {inclinacao:.2f}° não é possível a partir da latitude {abs(lat):.2f}° "
-            f"sem manobra orbital. Inclinação mínima possível: {abs(lat):.2f}°"
+            f"Inclinação {inc:.2f}° impossível a partir da latitude {abs(lat):.2f}°."
         )
 
-    # Caso especial: inclinação ≈ latitude (lançamento exato para leste)
-    if abs(abs(inclinacao) - abs(lat)) < 1e-2:
-        return 90.0  # azimute exato para leste
+    # Caso especial: inclinação mínima direta
+    if abs(inc - abs(lat)) < 1e-6:
+        return 90.0  # Leste puro
 
-    # Cálculo normal do ângulo
-    angulo = math.degrees(math.acos(limite))
+    lat_rad = math.radians(lat)
+    inc_rad = math.radians(inc)
 
-    # Órbita prógrada ou retrógrada
-    if inclinacao <= 90:
-        azimute = angulo
+    cos_theta = math.cos(inc_rad) / math.cos(lat_rad)
+    cos_theta = max(-1.0, min(1.0, cos_theta))
+
+    theta = math.degrees(math.acos(cos_theta))
+
+    if inc <= 90:
+        # Prógrada
+        return theta
     else:
-        azimute = 180 + angulo  # direção retrógrada segura
+        # Retrógrada OPERACIONAL (Vandenberg / SSO)
+        return 180 + (theta - 90)
 
-    return azimute
 
-
-def interpretar_direcao(az):
-    """
-    Interpreta a direção geográfica aproximada com base no azimute.
-    """
-    if az < 22.5 or az >= 337.5:
-        return "norte"
-    elif az < 67.5:
-        return "nordeste"
-    elif az < 112.5:
+def direcao(az):
+    if az < 112.5:
         return "leste"
     elif az < 157.5:
         return "sudeste"
@@ -58,16 +46,12 @@ def interpretar_direcao(az):
 
 
 if __name__ == "__main__":
-    print("\nCálculo do Azimute de Lançamento Orbital\n")
+    print("\n Cálculo do Azimute de Lançamento Orbital\n")
 
-    try:
-        lat = float(input("Insira a latitude da base de lançamento (em graus): "))
-        inclinacao = float(input("Insira a inclinação orbital desejada (em graus): "))
+    lat = float(input("Insira a latitude da base de lançamento (em graus): "))
+    inc = float(input("Insira a inclinação orbital desejada (em graus): "))
 
-        az = calcular_azimute(lat, inclinacao)
-        direcao = interpretar_direcao(az)
+    az = azimute_operacional(lat, inc)
 
-        print(f"\n Azimute calculado: {az:.2f}° (em direção {direcao})")
+    print(f"\nAzimute operacional calculado: {az:.2f}° (em direção {direcao(az)})")
 
-    except ValueError as e:
-        print(f"\n{e}")
