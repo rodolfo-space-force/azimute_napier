@@ -1,3 +1,6 @@
+#Rodolfo Milhomem
+#https://github.com/rodolfo-space-force/
+
 import math
 
 def azimute_operacional(latitude, inclinacao):
@@ -55,3 +58,7 @@ if __name__ == "__main__":
 
     print(f"\nAzimute operacional calculado: {az:.2f}° (em direção {direcao(az)})")
 
+
+# Licença
+#Este projeto está licenciado sob a **Licença MIT**.  
+#Você pode usar, modificar e redistribuir este código livremente, **desde que mencione o autor original**.
