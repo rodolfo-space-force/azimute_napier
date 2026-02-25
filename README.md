@@ -1,78 +1,102 @@
 # azimute_napier
-Calcular o azimute de lançamento de Veículo Lançador.
+
+Launch azimuth computation for orbital insertion from a given launch latitude.
 
 [![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://github.com/topics/python)
 
-O código serve para calcular o azimute de lançamento (ângulo no horizonte em que o foguete deve ser lançado) para atingir uma órbita com determinada inclinação a partir de uma latitude de lançamento.
+---
 
-![Texto alternativo da imagem](inclinacao.png)
+## Overview
 
-Exemplos de dados que você pode inserir
+This script computes the required **launch azimuth** (horizontal heading angle at liftoff) needed to achieve a target orbital inclination from a specified launch site latitude.
 
- 1. Cabo Canaveral (EUA)
+The azimuth determines the direction in which the launch vehicle must ascend to reach the desired orbital plane while accounting for Earth’s rotation and geographic constraints.
 
- Latitude: 28.5
- Inclinação desejada: 28.5 (órbita mínima possível desde essa base)
- Resultado esperado: azimute ≈ 90° (lançamento para o leste, alinhado com a rotação da Terra).
+![Inclination Diagram](inclinacao.png)
 
 ---
 
- 2. Guiana Francesa (Centro Espacial de Kourou)
+## Example Input Scenarios
 
- Latitude: 5.2
- Inclinação desejada: 5.2
- Resultado esperado: azimute ≈ 90° (também puro leste, aproveitando totalmente a rotação da Terra).
+### 1. Cape Canaveral (USA)
 
----
-
- 3. Alcântara (Brasil)
-
- Latitude: 2.3
- Inclinação desejada: 0.0 (órbita equatorial perfeita)
- Resultado esperado: azimute ≈ 90° (exatamente para leste, ideal para GEO).
- Quando você digita -2.3, o código entende que está no hemisfério sul, e retorna corretamente o azimute 277.4° que é o usado em missões reais lançadas de Alcântara para órbitas SSO.
-
-Para órbitas equatoriais (ex: GEO):
-O sinal da latitude não muda o azimute  = 90° para ambos os hemisférios.
-
-Para órbitas inclinadas (ex: SSO):
-O sinal da latitude é determinante, porque ele define o lado do planeta por onde o foguete deve subir para alcançar com segurança a inclinação desejada sem sobrevoar continentes.
-
-Exemplo: Missao Innospace em alcantara:
-O HANBIT-Nano é um veículo de lançamento espacial de dois capacidade de transporte de um custo útil de 90 kg para uma heliosíncrona (SSO) de 500 km.
-Cálculo do Azimute de Lançamento Orbital
-
-Insira a latitude da base de lançamento (em graus): -2.3  (hemisferio sul)
-Insira a inclinação orbital desejada (em graus): 97.6 (SSO)
-
- Azimute operacional calculado: 187.61° (em direção sul)
+- Latitude: 28.5°  
+- Desired inclination: 28.5° (minimum prograde orbit from this site)  
+- Expected result: azimuth ≈ 90° (due east, fully aligned with Earth's rotation)
 
 ---
 
- 4. Vandenberg (Califórnia, EUA)
+### 2. Guiana Space Centre (Kourou)
 
- Latitude: 34.7
- Inclinação desejada: 98.0 (órbita heliossíncrona / retrógrada)
- Resultado esperado: azimute ≈ ≈190° (lançamento para sul/sudoeste, sobre o Pacífico).
+- Latitude: 5.2°  
+- Desired inclination: 5.2°  
+- Expected result: azimuth ≈ 90° (pure east, maximizing rotational boost)
 
 ---
 
- Observações importantes
+### 3. Alcântara Launch Center (Brazil)
 
-1. Limite de inclinação mínima: um local de latitude φ não pode lançar para inclinações menores que φ (em órbita prógrada). Exemplo: de Cabo Canaveral (28.5°N), não se pode lançar para 10° de inclinação.
-2. Órbitas retrógradas (> 90°): o foguete vai para o oeste (azimute > 180°).
-3. Usos práticos:
+- Latitude: −2.3° (Southern Hemisphere)  
+- Desired inclination: 0.0° (equatorial orbit)  
+- Expected result: azimuth ≈ 90° (ideal for GEO transfer missions)
 
-    Órbitas geoestacionárias → azimute leste (90°).
-    Órbitas polares → lançamentos norte ou sul (\~0° ou 180°).
+For retrograde Sun-synchronous missions:
 
-You can reach me at rmilhomem[at]gmail[dot]com or connect on [LinkedIn](https://www.linkedin.com/in/rodolfo-space-force/) for collaborations.
+Example: HANBIT-Nano mission (500 km SSO)
 
+Input:
+- Launch latitude: −2.3°  
+- Target inclination: 97.6°  
 
-## Licença
+Computed operational azimuth: 187.61° (southbound trajectory)
 
-Este projeto está licenciado sob a Licença MIT. Você pode usar, modificar e redistribuir este código livremente, desde que mencione o autor original.
+The sign of the latitude determines the correct ascent direction in inclined or retrograde missions.
+
+---
+
+### 4. Vandenberg Space Force Base (USA)
+
+- Latitude: 34.7°  
+- Desired inclination: 98.0° (Sun-synchronous / retrograde)  
+- Expected result: azimuth ≈ 190° (south/southwest, over the Pacific Ocean)
+
+---
+
+## Orbital Mechanics Considerations
+
+- The minimum achievable prograde inclination from a launch site equals its absolute latitude (|φ|).
+- Inclinations greater than 90° correspond to retrograde orbits (launch azimuth > 180°).
+- Equatorial missions typically require an eastward launch (≈ 90°).
+- Polar missions require northbound or southbound launches (≈ 0° or 180°).
+
+The calculation assumes:
+
+- Spherical Earth approximation  
+- Negligible atmospheric effects  
+- Direct orbital insertion without plane-change maneuver  
+
+---
+
+## Practical Applications
+
+- Preliminary mission design
+- Launch corridor feasibility analysis
+- Sun-synchronous orbit planning
+- GEO and equatorial mission assessment
+- Educational orbital mechanics demonstrations
+
+---
+
+## License
+
+This project is licensed under the MIT License.
+
+You are free to use, modify, and redistribute the code, provided proper attribution is maintained.
 
 [![MIT License](https://img.shields.io/badge/license-MIT-green?style=for-the-badge)](LICENSE)
 
+---
+
+For collaboration, contact: rmilhomem[at]gmail[dot]com  
+Or connect via LinkedIn.
 
